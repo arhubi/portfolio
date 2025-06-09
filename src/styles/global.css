@@ -11,13 +11,24 @@
 	--color-global-bg: oklch(98.48% 0 0);
 	--color-global-text: oklch(26.99% 0.0096 235.05);
 	--color-link: oklch(55.44% 0.0431 185.69);
-	--color-accent: oklch(55.27% 0.195 19.06);
+	--color-accent: oklch(0.4711 0.0489 148.74); 
 	--color-accent-2: oklch(18.15% 0 0);
 	--color-quote: oklch(55.27% 0.195 19.06);
+
+	--font-pp-neue-machina: "PPNeueMachina", sans-serif;
+}
+
+@font-face {
+	font-family: "PPNeueMachina";
+	src: url("/fonts/PPNeueMachina-Regular.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
 }
 
 @layer base {
 	html {
+		position: relative;
 		color-scheme: light dark;
 		accent-color: var(--color-accent);
 
@@ -33,7 +44,22 @@
 			--color-accent: oklch(70.91% 0.1415 163.7);
 			--color-accent-2: oklch(94.66% 0 0);
 			--color-quote: oklch(94.8% 0.106 136.49);
+
+			body {
+				background-image: radial-gradient(#111 1px, transparent 0.5px);
+				background-size: 10px 10px;
+			}
 		}
+	}
+
+	body {
+		background-image: radial-gradient(#eee 1px, transparent 0px);
+		background-size: 12px 12px;
+	}
+
+	h1,
+	h2 {
+		@apply font-pp-neue-machina;
 	}
 
 	:target {
@@ -52,6 +78,11 @@
 
 	.title {
 		@apply text-accent-2 text-2xl font-semibold;
+		font-family: "PPNeueMachina", sans-serif;
+	}
+
+	.link {
+		@apply text-link underline underline-offset-2 transition-all hover:font-bold hover:decoration-2;
 	}
 
 	.admonition {

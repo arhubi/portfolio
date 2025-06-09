@@ -1,37 +1,53 @@
 ---
-import { type CollectionEntry, getCollection } from "astro:content";
-import SocialList from "@/components/SocialList.astro";
-import PostPreview from "@/components/blog/PostPreview.astro";
-import Note from "@/components/note/Note.astro";
-import { getAllPosts } from "@/data/post";
+// import { type CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+
+// import { getAllPosts } from "@/data/post";
 import PageLayout from "@/layouts/Base.astro";
-import { collectionDateSort } from "@/utils/date";
+// import { collectionDateSort } from "@/utils/date";
 
 // Posts
-const MAX_POSTS = 10;
-const allPosts = await getAllPosts();
-const allPostsByDate = allPosts
-	.sort(collectionDateSort)
-	.slice(0, MAX_POSTS) as CollectionEntry<"post">[];
-
-// Notes
-const MAX_NOTES = 5;
-const allNotes = await getCollection("note");
-const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
+// const MAX_POSTS = 10;
+// const allPosts = await getAllPosts();
+// const allPostsByDate = allPosts
+// 	.sort(collectionDateSort)
+// 	.slice(0, MAX_POSTS) as CollectionEntry<"post">[];
 ---
 
+<script>
+	import { animate, stagger } from "motion";
+
+	animate(
+		"p,h2,ul",
+		{ opacity: [0, 1], x: [-32, 0], y: [-4, 0] },
+		{ duration: 0.6, delay: stagger(0.1), easing: "ease-out" },
+	);
+</script>
+
 <PageLayout meta={{ title: "Home" }}>
-	<section>
-		<h1 class="title mb-6">Hello World!</h1>
-		<p class="mb-4">
-			Hi, I’m a theme for Astro, a simple starter that you can use to create your website or blog.
-			If you want to know more about how you can customise me, add more posts, and make it your own,
-			click on the GitHub icon link below and it will take you to my repo.
+	<section class="relative">
+		<h2 class="title mb-6 text-2xl">Bonjour 🙂</h2>
+		<p>
+			Je suis Arthur, <strong>web lead dev</strong> basé à Paris.
+			<br />
+			Actuellement chez Fifteen ✳, je conçois des interfaces sobres, utiles et soignées — au service
+			de projets à impact, comme les <strong>réseaux de vélos en libre-service 🚲</strong> dans les villes
+			européennes.
 		</p>
-		<SocialList />
+		<p class="mt-4">
+			J’explore au quotidien les manières d’utiliser le web comme <strong
+				>levier de transition 🌱</strong
+			>, avec une attention portée à l’efficience, à la simplicité, et au sens.
+		</p>
+
+		<p class="mt-4">
+			Je cours 🏃, je fais du trail, de la randonnée 🥾 et un peu d’escalade 🧗. Je suis curieux sur
+			de nombreux sujets, et j'aime partir à l'aventure, à pied, vélo, en train, ou dans des projets
+			variés.
+		</p>
 	</section>
-	<section class="mt-16">
-		<h2 class="title text-accent mb-6 text-xl"><a href="/posts/">Posts</a></h2>
+	<!-- <section class="relative mt-16">
+		<h2 class="title mb-6 text-2xl"><a href="/posts/">Articles</a></h2>
 		<ul class="space-y-6" role="list">
 			{
 				allPostsByDate.map((p) => (
@@ -41,21 +57,5 @@ const latestNotes = allNotes.sort(collectionDateSort).slice(0, MAX_NOTES);
 				))
 			}
 		</ul>
-	</section>
-	{
-		latestNotes.length > 0 && (
-			<section class="mt-16">
-				<h2 class="title text-accent mb-6 text-xl">
-					<a href="/notes/">Notes</a>
-				</h2>
-				<ul class="space-y-6" role="list">
-					{latestNotes.map((note) => (
-						<li>
-							<Note note={note} as="h3" isPreview />
-						</li>
-					))}
-				</ul>
-			</section>
-		)
-	}
+	</section> -->
 </PageLayout>
