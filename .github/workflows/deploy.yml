@@ -1,0 +1,38 @@
+name: Build and Deploy Astro
+on:
+  push:
+    branches: ["main"]
+jobs:
+  build_and_deploy:
+    name: Deploy Astro Website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build site
+        run: pnpm run build
+
+      - name: Copy bucket config to dist
+        run: cp bucket-config.json dist/
+
+      - name: Deploy to Scaleway Object Storage
+        uses: shallwefootball/s3-upload-action@master
+        with:
+          aws_key_id: ${{ secrets.SCW_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.SCW_SECRET_ACCESS_KEY }}
+          aws_bucket: ${{ secrets.SCW_BUCKET_NAME }}
+          source_dir: "dist"
+          destination_dir: ""
+          endpoint: https://s3.fr-par.scw.cloud

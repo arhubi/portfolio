@@ -1,36 +1,124 @@
 ---
 import PageLayout from "@/layouts/Base.astro";
+import { getCollection } from "astro:content";
+import { useTranslations, getLangFromUrl } from "src/i18n/utils";
 
 const meta = {
 	description: "I'm a starter theme for Astro.build",
 	title: "About",
 };
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const skills = await getCollection("skills");
+
+const availableIcons = Object.values(
+	import.meta.glob("/public/icons/*.(svg|webp|png)", { eager: true }),
+).map((icon: any) => {
+	const iconSrc = icon.default?.src ?? icon.default;
+	return iconSrc.replace(".*/public", "");
+});
+const getSkillIcon = (iconName: string) => availableIcons.find((icon) => icon.includes(iconName));
 ---
 
+<script>
+	import { animate, stagger } from "motion";
+
+	animate(
+		"p,h2,ul",
+		{ opacity: [0, 1], x: [-32, 0], y: [-4, 0] },
+		{ duration: 0.8, delay: stagger(0.05), easing: "ease-out" },
+	);
+</script>
+
 <PageLayout meta={meta}>
-	<h1 class="title mb-6">About</h1>
-	<div class="prose prose-sm prose-cactus max-w-none">
+	<h2 class="title mb-6 text-2xl">À propos</h2>
+	<section class="mt-8 space-y-4">
 		<p>
-			Hi, I’m a starter Astro. I’m particularly great for getting you started with your own blogging
-			website.
+			Développeur web depuis cinq ans, je conçois des interfaces sobres et efficaces — avec une
+			passion particulière pour les expériences à la fois <strong>fluides</strong>, <strong
+				>lisibles</strong
+			> et <strong>marquantes</strong>.
 		</p>
-		<p>Here are my some of my awesome built in features:</p>
-		<ul class="list-inside list-disc" role="list">
-			<li>I'm ultra fast as I'm a static site</li>
-			<li>I'm fully responsive</li>
-			<li>I come with a light and dark mode</li>
-			<li>I'm easy to customise and add additional content</li>
-			<li>I have Tailwind CSS styling</li>
-			<li>Shiki code syntax highlighting</li>
-			<li>Satori for auto generating OG images for blog posts</li>
+		<p>
+			Je suis convaincu que le web peut (et doit) être un levier d’impact positif. J’aime contribuer
+			à des projets qui ont du <strong>sens</strong> : social, environnemental, humain.
+		</p>
+		<p>
+			Ce que je recherche avant tout, c’est <strong>améliorer ce qui existe</strong>, affiner,
+			simplifier, reconstruire plus juste. C’est là que je me sens à ma place.
+		</p>
+	</section>
+
+	<section class="mt-8">
+		<h2 class="title text-xl">Les technologies que j'utilise</h2>
+		<p class="mb-4 text-xs">(liste non-exhaustive et en évolution)</p>
+		<ul class="flex flex-wrap items-center gap-2">
+			{
+				skills
+					.filter((skill) => skill.data.type === "technical")
+					.map((skill) => (
+						<li class="border-accent flex items-center gap-2 rounded-full bg-white px-2 py-1 shadow-xs dark:bg-black">
+							{getSkillIcon(skill.data.name) && (
+								<img
+									src={getSkillIcon(skill.data.name)}
+									alt={t(`skills.${skill.data.name}`) + " icon"}
+									class="h-4 w-4"
+								/>
+							)}
+							<span>{t(`skills.${skill.data.name}`)}</span>
+						</li>
+					))
+			}
 		</ul>
+	</section>
+
+	<section class="relative mt-12 space-y-6">
+		<h2 class="text-xl font-bold">Mon parcours</h2>
+		<div class="space-y-4">
+			<p>
+				<strong>2018</strong> — Retour au code après quelques années d’éloignement, via un poste de développeur
+				haut niveau sur progiciel ( domaine de la CRM). J’entame un apprentissage autodidacte (Python,
+				JavaScript), qui me conduit à un poste de
+				<strong>développeur fullstack</strong> en 2021.
+			</p>
+			<p>
+				<strong>2018–2022</strong> — Quatre années en ESN, dans deux structures différentes, où j’interviens
+				sur une grande diversité de missions : développement front & back, relation client, chiffrage,
+				accompagnement de profils juniors.
+				<br />
+				J’ai notamment travaillé pour des clients comme <span class="font-medium">Engie</span>, <span
+					class="font-medium">CNP Assurances</span
+				> ou le <span class="font-medium">groupe Kering</span>.
+				<span class="text-gray-600 italic"
+					>Une école riche, mais un modèle dans lequel je ne trouvais plus d’alignement.</span
+				>
+			</p>
+			<p>
+				<strong>Début 2022</strong> — Je rejoins <span class="font-semibold">Fifteen</span>,
+				entreprise engagée dans la mobilité douce, en tant que développeur frontend.
+			</p>
+			<p>
+				J’y développe des applications métiers pour les villes et les opérateurs de services, mais
+				aussi des interfaces pensées pour les utilisateurs finaux. Au-delà du développement,
+				j’interviens aussi sur les aspects <strong>UI/UX</strong> et <strong>produit</strong>, en
+				contribuant aux choix de conception, à la clarté des parcours, et à la qualité d’usage des
+				interfaces.
+			</p>
+			<p>
+				<strong>Début 2025</strong> — J’évolue en tant que <strong>lead développeur frontend</strong
+				>, en charge de la <span class="font-medium">qualité technique</span>, de la <span
+					class="font-medium">structuration des projets</span
+				>, et de l’<span class="font-medium">accompagnement d’une équipe de 3 développeurs</span>.
+			</p>
+		</div>
+	</section>
+
+	<section class="mt-8 space-y-6">
+		<h2 class="title">CV</h2>
 		<p>
-			Clone or fork my <a
-				class="cactus-link inline-block"
-				href="https://github.com/chrismwilliams/astro-cactus"
-				rel="noreferrer"
-				target="_blank">repo</a
-			> if you like me!
+			<a class="link" href="/arthur-briere-resume.pdf" target="_blank">Téléchager mon CV</a>
 		</p>
-	</div>
+	</section>
 </PageLayout>

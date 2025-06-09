@@ -1,0 +1,49 @@
+---
+title: Introducing Piwa
+publishDate: 23 May 2025
+description: I've created a handy promise wrapper, let me introduce it.
+tags: ["js", "promises", "firestore"]
+---
+
+import { Image } from "astro:assets";
+
+## Where it all started
+
+As a JS developer, I have two main issues to write clean code.
+The first is the callback style, like:
+
+```js
+fs.readFile(`path-to-my-file`, (err, data) => {
+	// Do some stuff with my data
+});
+```
+
+Not really scary at first sight, but it can be, if for example the file contains a list of paths that you want to read after. It becomes:
+
+```js
+// -- my-files-list.txt --
+// file-1.txt
+// file-2.txt
+// file-3.txt
+
+
+fs.readFile('my-files-list.txt, (err, data) => {
+	// Get the files
+	// files = ["file-1.txt", "files-2.txt", "file-3.txt"];
+	const files = data.toString().split(/\r?\n/);
+	files.forEach((file) => {
+		fs.readFile(file, (err, data) => {
+			// Do some stuff with sub files
+		})
+	})
+}
+```
+
+<Image
+	src="https://picsum.photos/id/1025/550/460"
+	alt="A covered up pug in the woods"
+	width={550}
+	height={460}
+/>
+
+## Introducing Piwa

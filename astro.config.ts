@@ -20,10 +20,24 @@ import { rehypeHeadingIds } from "@astrojs/markdown-remark";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeExternalLinks from "rehype-external-links";
 import rehypeUnwrapImages from "rehype-unwrap-images";
+import type { AstroUserConfig } from "astro";
+
+export const i18nConfig: AstroUserConfig["i18n"] = {
+	defaultLocale: "fr",
+	locales: ["fr", "en"],
+	routing: {
+		prefixDefaultLocale: false,
+	},
+} as const;
 
 // https://astro.build/config
 export default defineConfig({
+	// i18n: i18nConfig,
 	site: siteConfig.url,
+	build: {
+		format: "file",
+	},
+	trailingSlash: "never",
 	image: {
 		domains: ["webmention.io"],
 	},
@@ -95,6 +109,11 @@ export default defineConfig({
 			exclude: ["@resvg/resvg-js"],
 		},
 		plugins: [tailwind(), rawFonts([".ttf", ".woff"])],
+		build: {
+			rollupOptions: {
+				external: ["fsevents", "lightningcss"],
+			},
+		},
 	},
 	env: {
 		schema: {
