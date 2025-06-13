@@ -35,7 +35,7 @@ export default defineConfig({
 	// i18n: i18nConfig,
 	site: siteConfig.url,
 	build: {
-		format: "file",
+		format: "directory",
 	},
 	trailingSlash: "never",
 	image: {

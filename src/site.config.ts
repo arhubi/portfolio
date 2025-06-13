@@ -26,8 +26,7 @@ export const siteConfig: SiteConfig = {
 		- In the footer found in src/components/layout/Footer.astro L:12
 	*/
 	title: "Arthur Brière",
-	// ! Please remember to replace the following site property with your own domain, used in astro.config.ts
-	url: "https://arthur-on-the.net/",
+	url: "https://arthurbriere.me/",
 };
 
 // Used to generate links in both the Header & Footer.
@@ -37,11 +36,11 @@ export const menuLinks: { path: string; title: string }[] = [
 		title: "Accueil",
 	},
 	{
-		path: "/about/",
+		path: "/about",
 		title: "À propos",
 	},
 	{
-		path: "/projects/",
+		path: "/projects",
 		title: "Projets",
 	},
 	// {
