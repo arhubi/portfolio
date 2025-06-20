@@ -1,0 +1,16 @@
+routes:
+  - route: "^.+\\.(pdf)$"
+    headers:
+      Content-Type: 'application/pdf'
+  - route: "^.+\\.(css)$"
+    headers:
+      Content-Type: 'text/css; charset=utf-8'
+  - route: "^.+\\.(js)$"
+    headers:
+      Content-Type: 'application/javascript; charset=utf-8'
+  - route: "^.+\\.(html)$"
+    headers:
+      Content-Type: 'text/html; charset=utf-8'
+  - route: "^.+\\.(png|jpg|jpeg|gif|svg|webp)$"
+    headers:
+      Content-Type: 'image/*'
