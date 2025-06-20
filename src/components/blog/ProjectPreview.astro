@@ -16,7 +16,8 @@ const { as: Tag = "div", project, withDesc = false } = Astro.props;
 	data-component="project-preview"
 >
 	<Image
-		src={project.data.coverImage?.src ?? "https://placehold.co/600x400"}
+		src={project.data.coverImage?.src ??
+			`https://placehold.co/600x400/black/white/?text=${project.data.title}`}
 		alt={project.data.coverImage?.alt ?? ""}
 		width={600}
 		height={400}

@@ -6,6 +6,6 @@ export function elementHasClass(element: HTMLElement, className: string) {
 	return element.classList.contains(className);
 }
 
-export function rootInDarkMode() {
+export function isDarkMode() {
 	return document.documentElement.getAttribute("data-theme") === "dark";
 }
