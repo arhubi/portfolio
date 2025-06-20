@@ -33,8 +33,8 @@ const getSkillIcon = (iconName: string) => availableIcons.find((icon) => icon.in
 </script>
 
 <PageLayout meta={meta}>
-	<h2 class="title mb-6 text-2xl">À propos</h2>
 	<section class="mt-8 space-y-4">
+		<h2 class="title">À propos</h2>
 		<p>
 			Développeur web depuis cinq ans, je conçois des interfaces sobres et efficaces — avec une
 			passion particulière pour les expériences à la fois <strong>fluides</strong>, <strong
@@ -52,14 +52,14 @@ const getSkillIcon = (iconName: string) => availableIcons.find((icon) => icon.in
 	</section>
 
 	<section class="mt-8">
-		<h2 class="title text-xl">Les technologies que j'utilise</h2>
+		<h2 class="title">Les technologies que j'utilise</h2>
 		<p class="mb-4 text-xs">(liste non-exhaustive et en évolution)</p>
 		<ul class="flex flex-wrap items-center gap-2">
 			{
 				skills
 					.filter((skill) => skill.data.type === "technical")
 					.map((skill) => (
-						<li class="border-accent flex items-center gap-2 rounded-full bg-white px-2 py-1 shadow-xs dark:bg-black">
+						<li class="flex items-center gap-2 rounded-full border-1 border-zinc-200 bg-white px-2 py-1 shadow-xs dark:border-zinc-700 dark:bg-zinc-800 dark:shadow-md">
 							{getSkillIcon(skill.data.name) && (
 								<img
 									src={getSkillIcon(skill.data.name)}
@@ -75,7 +75,7 @@ const getSkillIcon = (iconName: string) => availableIcons.find((icon) => icon.in
 	</section>
 
 	<section class="relative mt-12 space-y-6">
-		<h2 class="text-xl font-bold">Mon parcours</h2>
+		<h2 class="title">Mon parcours</h2>
 		<div class="space-y-4">
 			<p>
 				<strong>2018</strong> — Retour au code après quelques années d’éloignement, via un poste de développeur
@@ -91,8 +91,8 @@ const getSkillIcon = (iconName: string) => availableIcons.find((icon) => icon.in
 				J’ai notamment travaillé pour des clients comme <span class="font-medium">Engie</span>, <span
 					class="font-medium">CNP Assurances</span
 				> ou le <span class="font-medium">groupe Kering</span>.
-				<span class="text-gray-600 italic"
-					>Une école riche, mais un modèle dans lequel je ne trouvais plus d’alignement.</span
+				<span class="text-gray-600 italic dark:text-gray-400"
+					>Un environnement riche, mais dans un modèle dans lequel je ne trouvais plus d’alignement.</span
 				>
 			</p>
 			<p>
